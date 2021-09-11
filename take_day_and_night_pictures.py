@@ -12,9 +12,9 @@ camera = PiCamera()
 sunset_hr=7.5
 dawn_hr=5.5
 daytime_period_min=10
-nighttime_period_min=1
+nighttime_period_min=10
 
-#Is it day or night? 
+#Is it day or night?
 time.localtime()
 print("program starts at ",time.localtime);
 hour = time.localtime()[3]
@@ -27,8 +27,8 @@ else :
 
 
 while(1):
-    
-    #Is it day or night? 
+
+    #Is it day or night?
     time.localtime()
     hour = time.localtime()[3]
     minute = time.localtime()[4]
@@ -44,27 +44,29 @@ while(1):
     if( daytime==1 and old_daytime==0 ):
         sun_just_rose=1
         print("sun just rose at ",time.localtime())
-    if( daytime=0 and old_daytime==1):
-        sun just_set=1
+    if( daytime==0 and old_daytime==1):
+        sun_just_set=1
         print("sun just set at ",time.localtime())
     # reset for next loop
     old_daytime=daytime
 
 
     # night
-    if( daytime==0):
-        
-        # if the camera just flipped into night mode, adjust the settings 
+    if( daytime==0): # night
+
+        # if the camera just flipped into night mode, adjust the settings
         if(sun_just_set==1):
             # exposure settings
+            camera.close()
+            camera = PiCamera()
             camera.resolution = (2592,1944)
             camera.framerate=Fraction(1,30)
             camera.shutter_speed = 30000000
-            camera.sensor_mode=3
+            #camera.sensor_mode=3
             camera.iso = 800
             time.sleep(30)
             camera.exposure_mode = 'off'
-        
+
         filename='sky-{:d}-{:02d}-{:02d}-{:02d}-{:02d}-{:02d}.jpg'.format(
             time.localtime()[0], # year
             time.localtime()[1], # month
@@ -73,17 +75,19 @@ while(1):
             time.localtime()[4], # min
             time.localtime()[5] # sec
         )
-         
-        
+
+
         camera.annotate_text = filename
         path="/home/pi/skyphotos/data/night/"
-        camera.capture(path+filename,format="jpeg")    
+        camera.capture(path+filename,format="jpeg")
+        print("took picture ",filename)
 
         command = "/usr/local/bin/gdrive upload --parent 1MHHUDivUvBcUu3k5sZZ0KhnwAfJEsKlX "+path+filename
         os.system(command)
+        print("uploaded picture ",filename)
 
         time.sleep(nighttime_period_min*60)
-    
+
     # day
     if(daytime==1): #implicit else
         # adjust the settings when daytime starts
@@ -100,18 +104,20 @@ while(1):
             time.localtime()[4], # min
             time.localtime()[5] # sec
         )
- 
+
         # exposure settings
         camera.exposure_mode="auto"
 
         camera.annotate_text = filename
         path="/home/pi/skyphotos/data/day/"
-        camera.capture(path+filename,format="jpeg")    
+        camera.capture(path+filename,format="jpeg")
+        print("took picture ",filename)
 
         command = "/usr/local/bin/gdrive upload --parent 1Lb2vou5_tG8YW263KClEb2df9o1ynvkg "+path+filename
         os.system(command)
+        print("uploaded picture ",filename)
 
         time.sleep(daytime_period_min*60)
 
-    
+
 camera.close()
