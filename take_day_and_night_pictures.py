@@ -9,8 +9,8 @@ camera = PiCamera()
 
 
 #parameters
-sunset_hr=7.5
-dawn_hr=5.5
+sunset_hr=7.3+0.5
+dawn_hr=6.75-0.5
 daytime_period_min=10
 nighttime_period_min=10
 
@@ -56,6 +56,7 @@ while(1):
 
         # if the camera just flipped into night mode, adjust the settings
         if(sun_just_set==1):
+            print("sun just set")
             # exposure settings
             camera.close()
             camera = PiCamera()
@@ -66,6 +67,7 @@ while(1):
             camera.iso = 800
             time.sleep(30)
             camera.exposure_mode = 'off'
+            print("camera night setup finished")
 
         filename='sky-{:d}-{:02d}-{:02d}-{:02d}-{:02d}-{:02d}.jpg'.format(
             time.localtime()[0], # year
@@ -92,9 +94,11 @@ while(1):
     if(daytime==1): #implicit else
         # adjust the settings when daytime starts
         if(sun_just_rose==1):
+            print("sun just rose")
             camera.close()
             camera = PiCamera()
             camera.resolution = (1296, 972)
+            print("sunrise setup finished")
 
         filename='sky-{:d}-{:02d}-{:02d}-{:02d}-{:02d}-{:02d}.jpg'.format(
             time.localtime()[0], # year
