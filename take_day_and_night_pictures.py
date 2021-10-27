@@ -35,10 +35,7 @@ while(1):
             time.localtime()[5] # sec
         )
 
-        # camera.annotate_text = filename
         path="/home/pi/skyphotos/data/night/"
-        # camera.capture(path+filename,format="jpeg")
-        # https://www.raspberrypi.org/documentation/accessories/camera.html
         command = ("raspistill --shutter 30000000 --analoggain 12.0" +
                 " --digitalgain 1.0 --nopreview --mode 3 "+
                 " --annotate "+filename+" -o "+path+filename )
@@ -50,6 +47,9 @@ while(1):
         os.system(command)
         print("uploaded picture ",filename)
 
+        if(time.localtime()[3]>sunset_hr) :
+            time.sleep(30*60) # wait 30 min if its before midnight
+        # normal wait
         time.sleep(nighttime_period_min*60)
 
     # day
