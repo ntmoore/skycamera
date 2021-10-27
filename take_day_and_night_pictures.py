@@ -2,10 +2,10 @@ import time
 import os
 
 #parameters
-sunset_hr=7.3+0.5
-dawn_hr=6.75-0.5
-daytime_period_min=1
-nighttime_period_min=10
+sunset_hr=8
+dawn_hr=7
+daytime_period_min=60
+nighttime_period_min=1
 
 time.localtime()
 print("program starts at ",time.localtime());
@@ -45,7 +45,7 @@ while(1):
         os.system(command)
         print("took picture ",filename)
 
-        command = "/usr/local/bin/gdrive upload --parent 1MHHUDivUvBcUu3k5sZZ0KhnwAfJEsKlX "+path+filename
+        command = "rclone copy " +path+filename+ " wsu-physics-skycamera:23817_camera/night/ "
         os.system(command)
         print("uploaded picture ",filename)
 
@@ -68,7 +68,7 @@ while(1):
         os.system(command)
         print("took picture ",filename)
 
-        command = "/usr/local/bin/gdrive upload --parent 1Lb2vou5_tG8YW263KClEb2df9o1ynvkg "+path+filename
+        command = "rclone copy " +path+filename+ " wsu-physics-skycamera:23817_camera/day/ "
         os.system(command)
         print("uploaded picture ",filename)
 
