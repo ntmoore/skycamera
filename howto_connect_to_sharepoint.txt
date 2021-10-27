@@ -1,0 +1,22 @@
+FYI, setting up rclone on a Pi to access files in Teams/Sharepoint/Onedrive is certainly possible.  
+
+Directions:
+1.	Install rclone with apt
+2.	rclone config, setup a Microsoft Onedrive repository (option 17?)
+3.	defaults, 2-factor authentication, then choose the 4 / Type in SiteID option
+4.	SiteID can be grabbed from sharepoint via https://<tenant>.sharepoint.com/sites/<site-url>/_api/site/id
+5.	In my case this looked like: https://mnscu.sharepoint.com/teams/WSU-physics-skycamera-Team/_api/site/id
+6.	paste in the key and you're done.
+7.	In rclone, don't forget the colon after the repo name.  eg, 
+pi@raspberrypi:~ $ rclone tree wsu-physics-skycamera: 
+/
+├── General
+└── camera1 photos
+    └── saved-photos
+        ├── sky-2021-09-21-18-51-10.jpg
+        ├── sky-2021-09-26-23-17-19.jpg
+        ├── sky-2021-09-29-03-05-09.jpg
+        ├── sky-2021-09-29-19-22-06.jpg
+        ├── sky-2021-10-02-18-59-00.jpg
+        ├── sky-2021-10-03-06-51-46.jpg
+...
