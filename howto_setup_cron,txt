@@ -1,0 +1,5 @@
+# add this line to the crontab via 
+# crontab -e
+@reboot /usr/bin/bash /home/pi/skyphotos/bootup_script.bash
+# check with the command 
+# crontab -l
