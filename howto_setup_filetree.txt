@@ -1,30 +1,21 @@
 # what should the file/directory structure look like in 
 # the pi user directory?
-pi@raspberrypi:~ $ tree
+pi@raspberrypi:~/skyphotos $ tree
 .
-├── Bookshelf
-│   └── 000_RPi_BeginnersGuide_DIGITAL.pdf
-├── Desktop
-├── Documents
-├── Downloads
-├── Music
-├── Pictures
-├── Public
-├── skyphotos
-│   ├── bin
-│   ├── bootup_script.bash
-│   ├── data
-│   │   ├── day
-│   │   │   └── sky-2021-10-26-19-05-42.jpg
-│   │   └── night
-│   ├── reboot_times.txt
-│   ├── skyphotos.log
+├── bin
 │   └── take_day_and_night_pictures.py
-├── Templates
-└── Videos
-
-14 directories, 6 files
-
+├── bootup_script.bash
+├── data
+│   ├── day
+│   │   ├── sky-2021-10-26-19-05-42.jpg
+│   │   └── sky-2021-10-26-20-23-05.jpg
+│   └── night
+│       ├── sky-2021-10-26-20-33-42.jpg
+...
+│       ├── sky-2021-10-26-22-49-43.jpg
+├── reboot_times.txt
+└── skyphotos.log
+#
 # create this with the commands
 cd ~
 mkdir skyphotos
