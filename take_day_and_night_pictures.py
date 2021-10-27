@@ -40,7 +40,8 @@ while(1):
         # camera.capture(path+filename,format="jpeg")
         # https://www.raspberrypi.org/documentation/accessories/camera.html
         command = ("raspistill --shutter 30000000 --analoggain 12.0" +
-                " --digitalgain 1.0 --nopreview --mode 3 -o "+path+filename )
+                " --digitalgain 1.0 --nopreview --mode 3 "+
+                " --annotate "+filename+" -o "+path+filename )
         print("running command: ",command)
         os.system(command)
         print("took picture ",filename)
@@ -64,7 +65,7 @@ while(1):
         )
 
         path="/home/pi/skyphotos/data/day/"
-        command="raspistill --nopreview --mode 3 -o " + path + filename
+        command="raspistill -annotate "+filename+" --nopreview --mode 3 -o " + path + filename
         os.system(command)
         print("took picture ",filename)
 
