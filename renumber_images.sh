@@ -13,4 +13,4 @@ do
 done
 
 # then make a movie with 
-# ffmpeg -i img_10%2d.jpg out.mp4
+# ffmpeg -r 1 -i img_10%2d.jpg -c:v libx264 -vf fps=25 -pix_fmt yuv420p out.mp4
